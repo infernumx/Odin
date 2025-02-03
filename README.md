@@ -13,7 +13,6 @@ Odin is a Python-based automation tool for Path of Exile, designed to assist wit
 
 ### Prerequisites  
 - Python 3.10+  
-- Pip installed  
 
 ## Requirements  
 
