@@ -8,20 +8,17 @@ from loguru import logger
 
 
 def process_cluster(item_info: str) -> Cluster | None:
-    jewel_type = re.search(r"(\w*) Cluster Jewel\n-{8}", item_info)
-    if not jewel_type:
+    jewel_type_match = re.search(r"(\w*) Cluster Jewel\n-{8}", item_info)
+    if not jewel_type_match:
         return None
-
-    # Parse details from item_info
+    jewel_type = f"{jewel_type_match.group(1)} Cluster Jewel"
     ilvl = int(re.search(r"Item Level: (\d+)", item_info).group(1))
     passives = int(
         re.search(r"Adds (\d+) Passive Skills \(enchant\)", item_info).group(1)
     )
-    jewel_type = f"{jewel_type.group(1)} Cluster Jewel"
     jewel_base = re.search(
         r"Added Small Passive Skills grant: ([^\n]+)\n", item_info
     ).group(1)
-
     mods_match = re.search(
         r"\(enchant\)\n-{8}\n([{}\d\w\s\"(:—),\.\+\-%]*)\n-{8}", item_info, re.DOTALL
     )
