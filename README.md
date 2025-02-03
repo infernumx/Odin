@@ -20,7 +20,9 @@ Odin is a Python-based automation tool for Path of Exile, designed to assist wit
 ```
 PySide6  
 pyautogui  
-loguru  
+loguru
+keyboard
+pynput
 ```
 
 ### Setup  
@@ -40,3 +42,9 @@ loguru
    ```sh
    python main.py  
    ```  
+
+### Visuals
+![Main Page](https://poop.agency/raw/V6PNcSyVKRF8LfXF.png)
+![Map Crafting](https://poop.agency/raw/Y6kN8WXRHNCgfGwJ.png)
+![Item Crafting](https://poop.agency/raw/UtmNYXrdqa6JJdkq.png)
+![Settings](https://poop.agency/raw/k667sJU2prsLXATv.png)
