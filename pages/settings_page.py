@@ -33,7 +33,7 @@ class SettingsPage(QWidget):
         layout.addWidget(theme_label)
 
         self.theme_combo = QComboBox()
-        self.theme_combo.addItems(["Dark Purple", "Dark Amber", "Classic Dark"])
+        self.theme_combo.addItems(["Dark Purple", "Classic Dark"])
         self.theme_combo.currentIndexChanged.connect(self.change_theme)
         layout.addWidget(self.theme_combo)
 
