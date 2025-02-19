@@ -11,6 +11,7 @@ from PySide6.QtCore import Signal
 import threading
 import calibration_module
 import config
+from theme import ShadowHeaderLabel
 
 
 class SettingsPage(QWidget):
@@ -22,7 +23,7 @@ class SettingsPage(QWidget):
 
     def init_ui(self):
         layout = QVBoxLayout()
-        header = QLabel("Settings")
+        header = ShadowHeaderLabel("Settings")
         header.setAlignment(Qt.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)

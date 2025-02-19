@@ -16,6 +16,7 @@ import cluster_module
 
 from .crafted_jewel_widget import CraftedJewelWidget
 from mytypes import Cluster
+from theme import ShadowHeaderLabel
 
 
 class ClustersPage(QWidget):
@@ -32,7 +33,7 @@ class ClustersPage(QWidget):
 
     def init_ui(self):
         layout = QVBoxLayout()
-        header = QLabel("Clusters")
+        header = ShadowHeaderLabel("Clusters")
         header.setAlignment(Qt.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)
@@ -64,7 +65,7 @@ class ClustersPage(QWidget):
         layout.addWidget(self.success_label)
 
         # Crafted Jewels grid section.
-        crafted_section_label = QLabel("Crafted Jewels")
+        crafted_section_label = ShadowHeaderLabel("Crafted Jewels")
         crafted_section_label.setAlignment(Qt.AlignCenter)
         crafted_section_label.setFont(QFont("Arial", 16))
         layout.addWidget(crafted_section_label)

@@ -1,8 +1,4 @@
 import sys
-import json
-import threading
-import time
-import os
 
 if sys.platform == "win32":
     import ctypes
@@ -26,7 +22,8 @@ from PySide6.QtWidgets import (
     QPushButton,
     QLabel,
 )
-from PySide6.QtGui import QFont
+from PySide6.QtWidgets import QPushButton, QGraphicsDropShadowEffect
+from PySide6.QtGui import QIcon, QColor, QFont
 
 # Import pages from the pages subpackage
 from pages.calibration_page import CalibrationPage
@@ -61,42 +58,70 @@ class MainWindow(QMainWindow):
         sidebar_layout = QVBoxLayout()
 
         # Create sidebar buttons with rounded styling.
-        button_style = """
-            QPushButton {
-                background-color: #4b0082;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 8px;
-                font-size: 14px;
-            }
-            QPushButton:hover {
-                background-color: #5d00a0;
-            }
-        """
+        button_style = get_button_style("Dark Purple")
 
         self.home_btn = QPushButton("Home")
+        self.home_btn.setIcon(QIcon("images/portal_scroll.png"))
         self.home_btn.setStyleSheet(button_style)
+        # Create and assign a drop shadow effect
+        shadow = QGraphicsDropShadowEffect(self.home_btn)
+        shadow.setColor(QColor(0, 0, 0, 180))  # Black color with 180/255 opacity
+        shadow.setBlurRadius(10)  # Adjust the blur radius as desired
+        shadow.setOffset(2, 2)  # Adjust the offset for the shadow
+        self.home_btn.setGraphicsEffect(shadow)
         self.home_btn.clicked.connect(lambda: self.switch_page(0))
         sidebar_layout.addWidget(self.home_btn)
 
         self.clusters_btn = QPushButton("Clusters")
+        self.clusters_btn.setIcon(QIcon("images/large_cluster_jewel.png"))
         self.clusters_btn.setStyleSheet(button_style)
+
+        # Create and assign a drop shadow effect
+        shadow = QGraphicsDropShadowEffect(self.clusters_btn)
+        shadow.setColor(QColor(0, 0, 0, 180))  # Black color with 180/255 opacity
+        shadow.setBlurRadius(10)  # Adjust the blur radius as desired
+        shadow.setOffset(2, 2)  # Adjust the offset for the shadow
+        self.clusters_btn.setGraphicsEffect(shadow)
+
         self.clusters_btn.clicked.connect(lambda: self.switch_page(1))
         sidebar_layout.addWidget(self.clusters_btn)
 
         self.maps_btn = QPushButton("Maps")
+        self.maps_btn.setIcon(QIcon("images/t17_map.png"))
         self.maps_btn.setStyleSheet(button_style)
+
+        # Create and assign a drop shadow effect
+        shadow = QGraphicsDropShadowEffect(self.maps_btn)
+        shadow.setColor(QColor(0, 0, 0, 180))  # Black color with 180/255 opacity
+        shadow.setBlurRadius(10)  # Adjust the blur radius as desired
+        shadow.setOffset(2, 2)  # Adjust the offset for the shadow
+        self.maps_btn.setGraphicsEffect(shadow)
+
         self.maps_btn.clicked.connect(lambda: self.switch_page(2))
         sidebar_layout.addWidget(self.maps_btn)
 
         self.items_btn = QPushButton("Items")
+        self.items_btn.setIcon(QIcon("images/crafting_recipe.png"))
         self.items_btn.setStyleSheet(button_style)
+
+        # Create and assign a drop shadow effect
+        shadow = QGraphicsDropShadowEffect(self.items_btn)
+        shadow.setColor(QColor(0, 0, 0, 180))  # Black color with 180/255 opacity
+        shadow.setBlurRadius(10)  # Adjust the blur radius as desired
+        shadow.setOffset(2, 2)  # Adjust the offset for the shadow
+        self.items_btn.setGraphicsEffect(shadow)
+
         self.items_btn.clicked.connect(lambda: self.switch_page(3))
         sidebar_layout.addWidget(self.items_btn)
 
         self.settings_btn = QPushButton("Settings")
         self.settings_btn.setStyleSheet(button_style)
+        # Create and assign a drop shadow effect
+        shadow = QGraphicsDropShadowEffect(self.settings_btn)
+        shadow.setColor(QColor(0, 0, 0, 180))  # Black color with 180/255 opacity
+        shadow.setBlurRadius(10)  # Adjust the blur radius as desired
+        shadow.setOffset(2, 2)  # Adjust the offset for the shadow
+        self.settings_btn.setGraphicsEffect(shadow)
         self.settings_btn.clicked.connect(lambda: self.switch_page(4))
         sidebar_layout.addWidget(self.settings_btn)
 
@@ -160,7 +185,9 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("images/tower_of_ordeals.png"))
     app.setStyleSheet(get_stylesheet("Dark Purple"))
+    app.setFont(QFont("Roboto", 10))
     window = MainWindow()
     window.show()
     sys.exit(app.exec())

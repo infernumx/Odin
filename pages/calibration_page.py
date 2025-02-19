@@ -12,6 +12,7 @@ from PySide6.QtGui import QPixmap, QFont
 import os, threading
 import calibration_module
 import config
+from theme import ShadowHeaderLabel, get_section_style, get_calibration_style
 
 
 class CalibrationPage(QWidget):
@@ -27,7 +28,7 @@ class CalibrationPage(QWidget):
         main_layout.setContentsMargins(5, 5, 5, 5)
         main_layout.setSpacing(5)
 
-        header = QLabel("Calibration")
+        header = ShadowHeaderLabel("Calibration")
         header.setAlignment(Qt.AlignCenter)
         header.setFont(QFont("Arial", 20))
         main_layout.addWidget(header)
@@ -83,9 +84,10 @@ class CalibrationPage(QWidget):
             container_layout.addWidget(status)
             container.setLayout(container_layout)
             # Use container style from config
-            container.setStyleSheet(
-                "background-color: #2e003e; border: 1px solid #5e085e; border-radius: 4px; padding: 4px;"
-            )
+            # container.setStyleSheet(
+            #    "background-color: #2e003e; border: 1px solid #5e085e; border-radius: 4px; padding: 4px;"
+            # )
+            container.setStyleSheet(get_calibration_style("Dark Purple"))
             self.containers.append(container)
             grid_layout.addWidget(container, row, col)
             btn.clicked.connect(
@@ -109,7 +111,6 @@ class CalibrationPage(QWidget):
 
     def update_theme(self, new_theme):
         # Here you can update the style; for now, we simply set a default.
-        from theme import get_section_style
 
         for container in self.containers:
             container.setStyleSheet(get_section_style(new_theme))

@@ -15,6 +15,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 import threading, json
 import map_module, bot_controller
+from theme import ShadowHeaderLabel
 
 
 class MapsPage(QWidget):
@@ -24,7 +25,7 @@ class MapsPage(QWidget):
 
     def init_ui(self):
         layout = QVBoxLayout()
-        header = QLabel("Map Crafting")
+        header = ShadowHeaderLabel("Map Crafting")
         header.setAlignment(Qt.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)

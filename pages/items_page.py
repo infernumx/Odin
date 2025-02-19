@@ -14,6 +14,7 @@ from PySide6.QtGui import QFont
 import threading
 import item_craft_module
 import bot_controller
+from theme import ShadowHeaderLabel
 
 
 class ItemsPage(QWidget):
@@ -23,7 +24,7 @@ class ItemsPage(QWidget):
 
     def init_ui(self):
         layout = QVBoxLayout()
-        header = QLabel("Item Crafting")
+        header = ShadowHeaderLabel("Item Crafting")
         header.setAlignment(Qt.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)
