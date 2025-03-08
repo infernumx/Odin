@@ -1,4 +1,5 @@
 import sys
+import threading
 
 if sys.platform == "win32":
     import ctypes
@@ -22,6 +23,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QLabel,
 )
+from PySide6.QtCore import Signal, QObject
 from PySide6.QtWidgets import QPushButton, QGraphicsDropShadowEffect
 from PySide6.QtGui import QIcon, QColor, QFont
 
@@ -32,12 +34,35 @@ from pages.maps_page import MapsPage
 from pages.items_page import ItemsPage
 from pages.settings_page import SettingsPage
 
+from bot_controller import Bot
+
 import config
 from theme import (
     get_stylesheet,
     get_button_style,
     get_section_style,
 )  # New import from theme.py
+
+
+class KillswitchMonitor(QObject):
+    killswitch_toggled = Signal(bool)
+
+    def __init__(self):
+        super().__init__()
+        self.start_monitor()
+
+    def start_monitor(self):
+        import keyboard
+
+        def monitor():
+            while True:
+                keyboard.wait("+")
+
+                Bot.toggle_killswitch()
+                state = Bot.get_killswitch_state()
+                self.killswitch_toggled.emit(state)
+
+        threading.Thread(target=monitor, daemon=True).start()
 
 
 class MainWindow(QMainWindow):
@@ -47,6 +72,8 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
         self.init_ui()
         self.load_positions()
+        self.killswitch_monitor = KillswitchMonitor()
+        self.killswitch_monitor.killswitch_toggled.connect(self.update_killswitch_label)
 
     def init_ui(self):
         central_widget = QWidget()
@@ -178,6 +205,9 @@ class MainWindow(QMainWindow):
         self.maps_btn.setStyleSheet(button_style)
         self.items_btn.setStyleSheet(button_style)
         self.settings_btn.setStyleSheet(button_style)
+
+    def update_killswitch_label(self, state):
+        self.killswitch_label.setText("Killswitch: ON" if state else "Killswitch: OFF")
 
     def switch_page(self, index):
         self.pages.setCurrentIndex(index)
