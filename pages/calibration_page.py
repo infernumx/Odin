@@ -92,7 +92,7 @@ class CalibrationPage(QWidget):
             # container.setStyleSheet(
             #    "background-color: #2e003e; border: 1px solid #5e085e; border-radius: 4px; padding: 4px;"
             # )
-            container.setStyleSheet(get_calibration_style("Dark Purple"))
+            container.setStyleSheet(get_section_style("Classic Dark"))
             self.containers.append(container)
             grid_layout.addWidget(container, row, col)
             btn.clicked.connect(

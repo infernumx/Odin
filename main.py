@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
         sidebar_layout = QVBoxLayout()
 
         # Create sidebar buttons with rounded styling.
-        button_style = get_button_style("Dark Purple")
+        button_style = get_button_style("Classic Dark")
 
         self.home_btn = QPushButton("Home")
         self.home_btn.setIcon(QIcon("images/portal_scroll.png"))
@@ -213,7 +213,7 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("images/tower_of_ordeals.png"))
-    app.setStyleSheet(get_stylesheet("Dark Purple"))
+    app.setStyleSheet(get_stylesheet("Classic Dark"))
     app.setFont(QFont("Roboto", 10))
     window = MainWindow()
     window.show()

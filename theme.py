@@ -151,7 +151,7 @@ def get_button_style(theme_name: str) -> str:
         return ""
 
 
-def create_header_label(text: str, theme_name: str = "Dark Purple") -> QLabel:
+def create_header_label(text: str, theme_name: str = "Classic Dark") -> QLabel:
     """
     Creates a styled header label with a bold, large font, drop shadow, and a 1px bottom border.
     """
