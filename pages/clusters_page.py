@@ -34,7 +34,7 @@ class ClustersPage(QWidget):
     def init_ui(self):
         layout = QVBoxLayout()
         header = ShadowHeaderLabel("Clusters")
-        header.setAlignment(Qt.AlignCenter)
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)
 
@@ -58,15 +58,15 @@ class ClustersPage(QWidget):
         layout.addWidget(self.craft_cluster_btn)
 
         self.attempts_label = QLabel("Craft Attempts: 0")
-        self.attempts_label.setAlignment(Qt.AlignCenter)
+        self.attempts_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.success_label = QLabel("Successful Crafts: 0")
-        self.success_label.setAlignment(Qt.AlignCenter)
+        self.success_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.attempts_label)
         layout.addWidget(self.success_label)
 
         # Crafted Jewels grid section.
         crafted_section_label = ShadowHeaderLabel("Crafted Jewels")
-        crafted_section_label.setAlignment(Qt.AlignCenter)
+        crafted_section_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         crafted_section_label.setFont(QFont("Arial", 16))
         layout.addWidget(crafted_section_label)
         self.crafted_grid = QGridLayout()
@@ -137,5 +137,5 @@ class ClustersPage(QWidget):
             get_section_style,
         )  # assuming you centralized theming in theme.py
 
-        self.section_container.setStyleSheet(get_section_style(new_theme))
+        # self.section_container.setStyleSheet(get_section_style(new_theme))
         # Optionally, update other widget styles if needed

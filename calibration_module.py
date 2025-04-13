@@ -14,7 +14,7 @@ def on_click(x, y, button, pressed) -> bool:
     return False
 
 
-def calibrate(currencyName) -> dict:
+def calibrate(currencyName) -> dict | None:
     if not Bot.activate_poe():
         return None
     with mouse.Listener(on_click=on_click) as listener:
@@ -23,7 +23,7 @@ def calibrate(currencyName) -> dict:
     return clicked_pos
 
 
-def calibrate_cluster_craft_button() -> dict:
+def calibrate_cluster_craft_button() -> dict | None:
     if not Bot.activate_poe():
         return None
     with mouse.Listener(on_click=on_click) as listener:

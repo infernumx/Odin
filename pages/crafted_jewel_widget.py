@@ -11,7 +11,10 @@ class CraftedJewelWidget(QWidget):
         self.setFixedSize(39, 39)
         image_file = f"images/{cluster.jewel_type.lower().replace(' ', '_')}.png"
         self.pixmap = QPixmap(image_file).scaled(
-            39, 39, Qt.KeepAspectRatio, Qt.SmoothTransformation
+            39,
+            39,
+            Qt.AspectRatioMode.KeepAspectRatio,
+            Qt.TransformationMode.SmoothTransformation,
         )
 
     def paintEvent(self, event):
@@ -19,7 +22,7 @@ class CraftedJewelWidget(QWidget):
         if not self.pixmap.isNull():
             painter.drawPixmap(0, 0, self.pixmap)
         else:
-            painter.drawText(self.rect(), Qt.AlignCenter, "?")
+            painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, "?")
 
     def enterEvent(self, event):
         tooltip_text = f"<b>Item Info:</b><br>"

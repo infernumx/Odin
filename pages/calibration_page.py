@@ -29,7 +29,7 @@ class CalibrationPage(QWidget):
         main_layout.setSpacing(5)
 
         header = ShadowHeaderLabel("Calibration")
-        header.setAlignment(Qt.AlignCenter)
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         header.setFont(QFont("Arial", 20))
         main_layout.addWidget(header)
 
@@ -61,24 +61,29 @@ class CalibrationPage(QWidget):
             container_layout.setContentsMargins(2, 2, 2, 2)
             container_layout.setSpacing(2)
             btn = QPushButton(display_name)
-            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+            btn.setSizePolicy(
+                QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred
+            )
             container_layout.addWidget(btn)
             container_layout.addSpacing(2)
             img_path = os.path.join("images", img_file)
             img_label = QLabel()
             if os.path.exists(img_path):
                 pixmap = QPixmap(img_path).scaled(
-                    39, 39, Qt.KeepAspectRatio, Qt.SmoothTransformation
+                    39,
+                    39,
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                    Qt.TransformationMode.SmoothTransformation,
                 )
                 img_label.setPixmap(pixmap)
-                img_label.setAlignment(Qt.AlignCenter)
+                img_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             else:
                 img_label.setText(display_name)
             img_label.setFixedWidth(45)
             container_layout.addWidget(img_label)
             container_layout.addSpacing(2)
             status = QLabel("???")
-            status.setAlignment(Qt.AlignCenter)
+            status.setAlignment(Qt.AlignmentFlag.AlignCenter)
             fixed_width = status.fontMetrics().horizontalAdvance("XXXXXXXXXXXX")
             status.setFixedWidth(fixed_width)
             container_layout.addWidget(status)
@@ -103,9 +108,10 @@ class CalibrationPage(QWidget):
     def calibrate_currency(self, currency, label_widget):
         def task():
             pos = calibration_module.calibrate(currency)
-            status = f"({pos['x']}, {pos['y']})"
-            config.set_value(pos, "currency", currency)
-            label_widget.setText(status)
+            if pos:
+                status = f"({pos['x']}, {pos['y']})"
+                config.set_value(pos, "currency", currency)
+                label_widget.setText(status)
 
         threading.Thread(target=task, daemon=True).start()
 

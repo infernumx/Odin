@@ -19,7 +19,7 @@ class Bot:
         return Bot._GLOBALS_.get(key)
 
     @classmethod
-    def activate_poe(cls) -> None:
+    def activate_poe(cls) -> bool:
         if poe_windows := gw.getWindowsWithTitle("Path of Exile"):
             poe = poe_windows[0]
             if not poe.isActive:
@@ -42,7 +42,7 @@ class Bot:
         return ret
 
     @classmethod
-    def select_pos(cls, key: str = "SELECTPOS") -> Position:
+    def select_pos(cls, key: str = "SELECTPOS") -> Position | None:
         if not cls.activate_poe():
             return None
 

@@ -12,13 +12,17 @@ def process_cluster(item_info: str) -> Cluster | None:
     if not jewel_type_match:
         return None
     jewel_type = f"{jewel_type_match.group(1)} Cluster Jewel"
-    ilvl = int(re.search(r"Item Level: (\d+)", item_info).group(1))
-    passives = int(
-        re.search(r"Adds (\d+) Passive Skills \(enchant\)", item_info).group(1)
-    )
-    jewel_base = re.search(
+    jewel_base = ""
+    ilvl = -1
+    passives = -1
+    if ilvl_rgx := re.search(r"Item Level: (\d+)", item_info):
+        ilvl = int(ilvl_rgx.group(1))
+    if passives_rgx := re.search(r"Adds (\d+) Passive Skills \(enchant\)", item_info):
+        passives = int(passives_rgx.group(1))
+    if base_rgx := re.search(
         r"Added Small Passive Skills grant: ([^\n]+)\n", item_info
-    ).group(1)
+    ):
+        jewel_base = base_rgx.group(1)
     mods_match = re.search(
         r"\(enchant\)\n-{8}\n([{}\d\w\s\"(:—),\.\+\-%]*)\n-{8}", item_info, re.DOTALL
     )
@@ -40,7 +44,12 @@ def filter_mods_by_regex(cluster: Cluster, regexes: list[str]) -> bool:
 def craft_cluster(
     regexes: list[str], attempt_callback=None, success_callback=None
 ) -> None:
-    location: Position = config.get_value_as_position("cluster", "button-location")
+    location: Position | None = config.get_value_as_position(
+        "cluster", "button-location"
+    )
+    if not location:
+        return
+
     item_location: Position = Position(location.x, location.y - 80)
     while not Bot.get_killswitch_state():
         item_info: str = Bot.get_item_info(item_location, retries=5)

@@ -156,10 +156,10 @@ def create_header_label(text: str, theme_name: str = "Dark Purple") -> QLabel:
     Creates a styled header label with a bold, large font, drop shadow, and a 1px bottom border.
     """
     label = QLabel(text)
-    label.setAlignment(Qt.AlignCenter)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     # Set a modern font; adjust family and size as needed.
-    font = QFont("Roboto", 24, QFont.Bold)
+    font = QFont("Roboto", 24, QFont.Weight.Bold)
     label.setFont(font)
 
     # Set a bottom border via stylesheet. (Qt supports a limited subset of CSS,
@@ -180,9 +180,9 @@ class ShadowHeaderLabel(QLabel):
     def __init__(self, text="", parent=None):
         super().__init__(text, parent)
         # Set a modern bold font; adjust family and size as needed.
-        font = QFont("Roboto", 24, QFont.Bold)
+        font = QFont("Roboto", 24, QFont.Weight.Bold)
         self.setFont(font)
-        self.setAlignment(Qt.AlignCenter)
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # Shadow settings
         self.shadowColor = QColor(0, 0, 0, 200)  # semi-transparent black
         self.shadowOffsetX = 2
@@ -190,9 +190,9 @@ class ShadowHeaderLabel(QLabel):
         # Remove the border from the stylesheet (we'll draw it manually)
         self.setStyleSheet("")
 
-    def paintEvent(self, event):
+    def paint_event(self, event):
         painter = QPainter(self)
-        painter.setRenderHint(QPainter.TextAntialiasing)
+        painter.setRenderHint(QPainter.RenderHint.TextAntialiasing)
 
         # Draw shadow text first
         painter.setPen(self.shadowColor)

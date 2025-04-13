@@ -5,12 +5,8 @@ if sys.platform == "win32":
     import ctypes
 
     # Set DPI awareness on Windows
-    ctypes.windll.user32.SetProcessDPIAware = (
-        lambda: None
-    )  # pyright: ignore[reportAttributeAccessIssue]
-    ctypes.windll.shcore.SetProcessDpiAwareness = (
-        lambda _: None
-    )  # pyright: ignore[reportUnknownLambdaType]
+    ctypes.windll.user32.SetProcessDPIAware = lambda: None  # type: ignore
+    ctypes.windll.shcore.SetProcessDpiAwareness = lambda _: None  # type: ignore
 
 from PySide6.QtWidgets import (
     QApplication,
@@ -81,7 +77,8 @@ class MainWindow(QMainWindow):
 
         # Sidebar using QPushButtons for navigation.
         sidebar = QFrame()
-        sidebar.setFrameShape(QFrame.StyledPanel)
+        sidebar.setFrameShape(QFrame.Shape.Panel)
+        sidebar.setFrameShadow(QFrame.Shadow.Sunken)
         sidebar_layout = QVBoxLayout()
 
         # Create sidebar buttons with rounded styling.
@@ -193,7 +190,7 @@ class MainWindow(QMainWindow):
     def on_theme_changed(self, theme_name):
         # Update the application's stylesheet so the program's background and widget styles change.
         stylesheet = get_stylesheet(theme_name)
-        QApplication.instance().setStyleSheet(stylesheet)
+        super().setStyleSheet(stylesheet)
 
         # Propagate the theme change to all pages that have an update_theme() method.
         self.calibration_page.update_theme(theme_name)

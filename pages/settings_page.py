@@ -24,7 +24,7 @@ class SettingsPage(QWidget):
     def init_ui(self):
         layout = QVBoxLayout()
         header = ShadowHeaderLabel("Settings")
-        header.setAlignment(Qt.AlignCenter)
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         header.setFont(QFont("Arial", 20))
         layout.addWidget(header)
 
@@ -60,9 +60,10 @@ class SettingsPage(QWidget):
     def calibrate_cluster_button(self):
         def task():
             pos = calibration_module.calibrate_cluster_craft_button()
-            status = f"({pos['x']}, {pos['y']})"
-            config.set_value(pos, "cluster", "button-location")
-            self.cluster_calib_status.setText(status)
+            if pos:
+                status = f"({pos['x']}, {pos['y']})"
+                config.set_value(pos, "cluster", "button-location")
+                self.cluster_calib_status.setText(status)
 
         threading.Thread(target=task, daemon=True).start()
 
@@ -72,5 +73,5 @@ class SettingsPage(QWidget):
             get_section_style,
         )  # assuming you centralized theming in theme.py
 
-        self.section_container.setStyleSheet(get_section_style(new_theme))
+        # self.section_container.setStyleSheet(get_section_style(new_theme))
         # Optionally, update other widget styles if needed

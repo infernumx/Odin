@@ -51,7 +51,7 @@ def filter_mods_by_regex(regex_count: int, mods: list[str], regexes: list[str]) 
 
 
 def craft_map(regexes: list[str], regex_count: int, expected_implicits: dict) -> None:
-    method_pos: Position = config.get_value_as_position("currency", "chaos")
+    method_pos: Position | None = config.get_value_as_position("currency", "chaos")
     map_pos: Position = Bot.get_global("map-item")
     if not method_pos or not map_pos:
         logger.info("Method pos or Map pos not set")

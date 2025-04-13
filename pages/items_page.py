@@ -46,7 +46,7 @@ class StepWidget(QWidget):
         shadow.setBlurRadius(15)
         shadow.setXOffset(0)
         shadow.setYOffset(0)
-        shadow.setColor(Qt.black)
+        shadow.setColor(Qt.GlobalColor.black)
         self.setGraphicsEffect(shadow)
 
     def build_ui(self):
@@ -132,9 +132,9 @@ class StepWidget(QWidget):
         insert_above_btn = QPushButton("+")
         remove_btn = QPushButton("X")
         insert_below_btn = QPushButton("+")
-        right_layout.addWidget(insert_above_btn, alignment=Qt.AlignCenter)
-        right_layout.addWidget(remove_btn, alignment=Qt.AlignCenter)
-        right_layout.addWidget(insert_below_btn, alignment=Qt.AlignCenter)
+        right_layout.addWidget(insert_above_btn, alignment=Qt.AlignmentFlag.AlignCenter)
+        right_layout.addWidget(remove_btn, alignment=Qt.AlignmentFlag.AlignCenter)
+        right_layout.addWidget(insert_below_btn, alignment=Qt.AlignmentFlag.AlignCenter)
         right_layout.addStretch()
         insert_above_btn.clicked.connect(lambda: self.insertAbove.emit(self))
         remove_btn.clicked.connect(lambda: self.removeStep.emit(self))
@@ -144,8 +144,8 @@ class StepWidget(QWidget):
         outer_layout.addLayout(main_layout)
 
         separator = QFrame()
-        separator.setFrameShape(QFrame.HLine)
-        separator.setFrameShadow(QFrame.Sunken)
+        separator.setFrameShape(QFrame.Shape.HLine)
+        separator.setFrameShadow(QFrame.Shadow.Sunken)
         separator.setLineWidth(3)
         separator.setStyleSheet("background-color: #444444;")
         outer_layout.addWidget(separator)
@@ -254,8 +254,8 @@ class ItemsPage(QWidget):
         main_layout.addLayout(top_layout)
 
         header = QLabel("Item Crafting")
-        header.setAlignment(Qt.AlignCenter)
-        header.setFont(QFont("Roboto", 24, QFont.Bold))
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        header.setFont(QFont("Roboto", 24, QFont.Weight.Bold))
         main_layout.addWidget(header)
 
         # Steps container
@@ -366,3 +366,9 @@ class ItemsPage(QWidget):
                 step_widget.insertBelow.connect(self.insert_step_below)
                 step_widget.removeStep.connect(self.remove_step)
                 self.steps_container.addWidget(step_widget)
+
+    def update_theme(self, new_theme):
+        # Update the style of the section container (or any other elements)
+        from theme import (
+            get_section_style,
+        )  # assuming you centralized theming in theme.py
